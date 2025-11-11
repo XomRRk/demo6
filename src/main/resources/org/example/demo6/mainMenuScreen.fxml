@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="475.0" prefWidth="845.0" style="-fx-background-color: #7B7C81;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo6.MainMenuController">
+
+    <!-- Верхняя панель (остается без изменений) -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <MenuBar style="-fx-background-color: #7B7C81;">
+                    <menus>
+                        <Menu style="-fx-text-fill: white;" text="Главная" />
+                        <Menu onAction="#handleHistoryMenuAction" style="-fx-text-fill: white;" text="История">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleHistoryMenuAction" text="история" />
+                     </items></Menu>
+                        <Menu fx:id="userMenu" style="-fx-text-fill: white;" text="Пользователь" />
+                    </menus>
+                </MenuBar>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <children>
+                        <Label style="-fx-text-fill: white;" text="Серия изделия" />
+                        <StackPane prefHeight="25" prefWidth="100" style="-fx-background-color: #453C41;">
+                            <Label style="-fx-text-fill: white;" text="Название" />
+                        </StackPane>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- Центр (остается без изменений) -->
+    <center>
+        <VBox alignment="CENTER" spacing="15">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-size: 24px;" text="МЕНЮ" />
+                <Button maxWidth="200" prefHeight="50" style="-fx-background-color: #453C41; -fx-text-fill: white;" text="Ручной режим" />
+                <Button fx:id="historyButton" maxWidth="200" onAction="#handleHistoryButton" prefHeight="50" style="-fx-background-color: #453C41; -fx-text-fill: white;" text="Последний замер" />
+                <Button fx:id="settingsButton" maxWidth="200" onAction="#handleSettingsButton" prefHeight="50" style="-fx-background-color: #453C41; -fx-text-fill: white;" text="Настройки" />
+            </children>
+        </VBox>
+    </center>
+
+    <!-- Низ -->
+    <bottom>
+        <!-- VBox для общего вертикального расположения всех элементов справа и выравнивания их по правому краю -->
+        <VBox alignment="CENTER_RIGHT" spacing="5" BorderPane.alignment="CENTER_RIGHT">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <!-- Метка для типа микровыключателя -->
+                <!-- Для Label, чтобы текст был выровнен по левому краю, а сам Label по правому, можно задать maxWidth -->
+                <Label alignment="CENTER_LEFT" maxWidth="200" style="-fx-text-fill: white;" text="Тип МП:" />
+
+                <!-- ComboBox для выбора типа микровыключателя -->
+                <ComboBox fx:id="switchTypeComboBox" maxWidth="200" prefWidth="200" promptText="Выберите тип" />
+
+                <!-- Метка для серийного номера -->
+                <Label alignment="CENTER_LEFT" maxWidth="200" style="-fx-text-fill: white;" text="Серийный №:" />
+
+                <!-- TextField для ввода серийного номера -->
+                <TextField fx:id="serialNumberField" maxWidth="200" prefWidth="200" promptText="Введите номер" />
+
+                <!-- Кнопка Запуск -->
+                <Button fx:id="startButton" onAction="#handleStartButton" prefHeight="40" prefWidth="150" style="-fx-background-color: #453C41; -fx-text-fill: white;" text="Запуск">
+                    <VBox.margin>
+                        <Insets top="10.0" /> <!-- Увеличенный отступ сверху для кнопки -->
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>

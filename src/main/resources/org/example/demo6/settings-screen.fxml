@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="460" prefWidth="800" style="-fx-background-color: #7B7C81;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="org.example.demo6.SettingsScreenController">
+
+
+    <Button fx:id="backButton" onAction="#handleBackButton" prefHeight="40" prefWidth="150" style="-fx-background-color: #453C41; -fx-text-fill: white;" text="Назад" />
+
+
+    <HBox spacing="40" AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40" AnchorPane.topAnchor="40">
+        <children>
+            <!-- Левая колонка -->
+            <VBox prefWidth="350" spacing="20">
+                <!-- Заголовок -->
+                <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Скорость в ручном режиме" />
+                <HBox spacing="10">
+                    <Button style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-font-weight: bold;" text="1" />
+                    <Button style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-font-weight: bold;" text="20" />
+                    <Button style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-font-weight: bold;" text="100" />
+                </HBox>
+
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Авто режим" />
+
+                <!-- Параметры авто -->
+                <VBox spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Циклов ср. вр." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="avgCyclesField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Циклов макс. вр." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxCyclesField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Вес касания" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="touchWeightField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Вес упора" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="stopWeightField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                </VBox>
+
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Выключатель-время" />
+
+                <!-- Параметры выключатель-время -->
+                <VBox spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс ср. вкл." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxAvgOnField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс ср. выкл." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxAvgOffField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс. вкл." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxOnField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс. выкл." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxOffField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Дребезг НЗ" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="debounceNCField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Дребезг НО" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="debounceNOField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <!-- Правая колонка -->
+            <VBox prefWidth="350" spacing="20">
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Выключатель‑ход" />
+
+                <VBox spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс прямой" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxDirectField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Мин прямой" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="minDirectField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс допол." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxAdditionalField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Мин допол." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="minAdditionalField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс дифф." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxDiffField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Мин дифф." />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="minDiffField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="0" />
+                    </HBox>
+                </VBox>
+
+                <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Выключатель‑напряжение" />
+
+                <VBox spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Макс НЗ" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="maxNCField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: white;" text="Мин НО" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="minNOField" prefWidth="150" style="-fx-background-color: #7B586B; -fx-text-fill: white;" text="1" />
+                    </HBox>
+                </VBox>
+
+                <!-- Кнопка снизу справа -->
+                <HBox alignment="CENTER_RIGHT" prefWidth="350" AnchorPane.bottomAnchor="20">
+                    <Button fx:id="saveParametersButton" onAction="#handleSaveParameters" prefWidth="180" style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 20;" text="Сохранить параметры" />
+
+                </HBox>
+
+            </VBox>
+        </children>
+    </HBox>
+</AnchorPane>

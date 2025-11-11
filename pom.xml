@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>demo6</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>demo6</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+        <javafx.version>22.0.1</javafx.version> <!-- Версия JavaFX -->
+        <maven.compiler.source>22</maven.compiler.source> <!-- Ваша версия JDK для компиляции -->
+        <maven.compiler.target>22</maven.compiler.target> <!-- Ваша версия JDK для компиляции -->
+    </properties>
+
+    <dependencies>
+        <!-- JavaFX Dependencies -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <!-- Платформо-зависимые артефакты JavaFX для немодульных приложений -->
+        <!-- Нужны, чтобы maven-shade-plugin мог упаковать нативные библиотеки -->
+        <!-- Замените 'win' на 'linux' или 'mac' если собираете для другой ОС -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <!-- Если используете javafx.media или javafx.web, добавьте их также с классификатором -->
+        <!--
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        -->
+
+        <!-- Другие ваши зависимости -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dlsc.formsfx</groupId>
+            <artifactId>formsfx-core</artifactId>
+            <version>11.6.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.bootstrapfx</groupId>
+            <artifactId>bootstrapfx-core</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.5</version>
+        </dependency>
+
+        <!-- Зависимости для тестов -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- jlibmodbus для Modbus RTU -->
+        <dependency>
+            <groupId>com.intelligt.modbus</groupId>
+            <artifactId>jlibmodbus</artifactId>
+            <version>1.2.9.10</version>
+        </dependency>
+
+        <!-- purejavacomm для работы с последовательным портом -->
+        <dependency>
+            <groupId>com.github.purejavacomm</groupId>
+            <artifactId>purejavacomm</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version> <!-- Актуальная версия -->
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Плагин для создания Fat JAR (Uber JAR) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version> <!-- Актуальная версия -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <!-- Здесь указываем наш новый класс-запускатор -->
+                                    <mainClass>org.example.demo6.HelloApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <!-- Опционально: если хотите, чтобы финальный JAR имел имя без "-shaded" -->
+                            <!-- <finalName>${project.artifactId}-${project.version}</finalName> -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- javafx-maven-plugin можно оставить для удобства запуска разработки (mvn javafx:run) -->
+            <!-- Но он не участвует напрямую в создании fat JAR через shade-plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <!-- Этот mainClass для javafx:run -->
+                    <mainClass>org.example.demo6.HelloApplication</mainClass>
+                    <!-- modulePath здесь НЕ нужен, если вы НЕ используете jlink через этот плагин,
+                         а полагаетесь на зависимости с классификаторами для fat jar.
+                         Если вы все же хотите его оставить для javafx:run без модулей, убедитесь,
+                         что путь к SDK корректен для вашей системы.
+                         Для fat JAR он не будет использоваться. -->
+                    <!-- <modulePath>C:/javafx-sdk-22/lib</modulePath> -->
+                    <launcher>app</launcher> <!-- Можно задать имя для jlink, если будете использовать -->
+                    <jlinkZipName>app</jlinkZipName>
+                    <jlinkImageName>app</jlinkImageName>
+                    <noManPages>true</noManPages>
+                    <stripDebug>true</stripDebug>
+                    <noHeaderFiles>true</noHeaderFiles>
+                </configuration>
+                <!-- Если javafx:run жалуется на отсутствие модулей, можно добавить execution с addModules -->
+                <!--
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.example.demo6.HelloApplication</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+                -->
+            </plugin>
+        </plugins>
+    </build>
+</project>

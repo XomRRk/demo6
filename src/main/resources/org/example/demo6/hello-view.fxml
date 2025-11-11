@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo6.HelloController">
+    <children>
+        <BorderPane style="-fx-background-color: #7B7C81;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+            <!-- Верхнее меню -->
+            <top>
+                <HBox prefHeight="25" style="-fx-background-color: #7B7C81;">
+                    <MenuBar style="-fx-background-color: #7B7C81;">
+                        <menus>
+                            <Menu fx:id="fileMenu" style="-fx-text-fill: white;" text="Файл">
+                                <items>
+                                    <MenuItem fx:id="openItem" text="Открыть" />
+                                    <MenuItem fx:id="saveItem" text="Сохранить" />
+                                    <SeparatorMenuItem />
+                                    <MenuItem fx:id="exitItem" text="Выход" />
+                                </items>
+                            </Menu>
+                            <Menu fx:id="settingsMenu" text="Настройки" />
+                            <Menu fx:id="helpMenu" text="Помощь" />
+                        </menus>
+                    </MenuBar>
+                </HBox>
+            </top>
+
+            <!-- Нижняя панель статуса -->
+            <bottom>
+                <HBox style="-fx-background-color: #e0e0e0;">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                    </padding>
+                </HBox>
+            </bottom>
+
+            <!-- Центр -->
+            <center>
+                <HBox spacing="0" style="-fx-background-color: #7B7C81;" HBox.hgrow="ALWAYS">
+                    <!-- Левая панель -->
+                    <VBox alignment="CENTER" prefWidth="85" spacing="10" style="-fx-background-color: #7B7C81; -fx-border-color: #1D0F0F; -fx-border-width: 2;">
+                        <padding>
+                            <Insets bottom="15" left="15" right="15" top="15" />
+                        </padding>
+                        <Button fx:id="stopButton" maxWidth="Infinity" onAction="#handleStopButtonAction" prefHeight="56" style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-background-radius: 10;" text="Стоп" />
+                        <Button fx:id="startButton" maxWidth="Infinity" onAction="#handleStartButtonAction" prefHeight="56" style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-background-radius: 10;" text="Пуск" />
+                        <Button fx:id="cancelButton" maxWidth="Infinity" onAction="#handleStopButtonAction" prefHeight="56" style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-background-radius: 10;" text="Отмена" />
+                        <Button fx:id="rightArrowButton" maxWidth="Infinity" prefHeight="56" style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-background-radius: 10;" text="⬆" />
+                        <Button fx:id="leftArrowButton" maxWidth="Infinity" prefHeight="56" style="-fx-background-color: #453C41; -fx-text-fill: white; -fx-background-radius: 10;" text="⬇" />
+                    </VBox>
+
+                    <!-- Правая часть -->
+                    <VBox spacing="5" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                        <!-- Верх: микровыключатель и таблица -->
+                        <HBox spacing="5" HBox.hgrow="ALWAYS">
+                            <VBox fx:id="microSwitchPanel" prefWidth="200" style="-fx-border-color: #1D0F0F; -fx-border-width: 1;">
+                                <Label fx:id="microSwitchLabel" style="-fx-font-weight: bold;" text="Микровыключатель" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@switch.png" />
+                           </image>
+                        </ImageView>
+                            </VBox>
+                            <TableView fx:id="dataTable" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="timeColumn" text="Общее время переключения (мкс)" />
+                                    <TableColumn fx:id="debrisColumn" text="Время дребезга (мкс)" />
+                                    <TableColumn fx:id="positionColumn" text="Позиция (мкм)" />
+                                    <TableColumn fx:id="speedColumn" text="Скорость (мкм/с)" />
+                                </columns>
+                            </TableView>
+                        </HBox>
+
+                        <!-- Средний блок: спидометры -->
+                        <HBox spacing="5" HBox.hgrow="ALWAYS">
+                            <VBox fx:id="positionSpeedometer" alignment="CENTER" spacing="5" style="-fx-background-color: #453C41; -fx-border-color: #1D0F0F; -fx-border-width: 2;" HBox.hgrow="ALWAYS">
+                                <Label style="-fx-text-fill: white;" text="Положение, мкм" />
+                                <StackPane alignment="CENTER">
+                                    <ImageView fx:id="positionSpeedometerImage" fitWidth="120" preserveRatio="true">
+                                        <image><Image url="@spedometer_image.png" /></image>
+                                    </ImageView>
+                                    <ImageView fx:id="positionArrow" fitWidth="30" preserveRatio="true" rotate="90">
+                                        <image><Image url="@arrow_image.png" /></image>
+                                    </ImageView>
+                                </StackPane>
+                                <Label fx:id="positionLabel" style="-fx-text-fill: white;" text="0" />
+                            </VBox>
+
+                            <VBox fx:id="speedSpeedometer" alignment="CENTER" spacing="5" style="-fx-background-color: #453C41; -fx-border-color: #1D0F0F; -fx-border-width: 2;" HBox.hgrow="ALWAYS">
+                                <Label style="-fx-text-fill: white;" text="Скорость, мкм/с" />
+                                <StackPane alignment="CENTER">
+                                    <ImageView fx:id="speedSpeedometerImage" fitWidth="120" preserveRatio="true">
+                                        <image><Image url="@spedometer_image.png" /></image>
+                                    </ImageView>
+                                    <ImageView fx:id="speedArrow" fitWidth="30.0" preserveRatio="true" rotate="90">
+                                        <image><Image url="@arrow_image.png" /></image>
+                                    </ImageView>
+                                </StackPane>
+                                <Label fx:id="speedLabel" style="-fx-text-fill: white;" text="0" />
+                            </VBox>
+
+                            <VBox fx:id="effortSpeedometer" alignment="CENTER" spacing="5" style="-fx-background-color: #453C41; -fx-border-color: #1D0F0F; -fx-border-width: 2;" HBox.hgrow="ALWAYS">
+                                <Label style="-fx-text-fill: white;" text="Усилия, г" />
+                                <StackPane alignment="CENTER">
+                                    <ImageView fx:id="effortSpeedometerImage" fitWidth="120" preserveRatio="true">
+                                        <image><Image url="@spedometer_image.png" /></image>
+                                    </ImageView>
+                                    <ImageView fx:id="effortArrow" fitWidth="30" preserveRatio="true" rotate="90">
+                                        <image><Image url="@arrow_image.png" /></image>
+                                    </ImageView>
+                                </StackPane>
+                                <Label fx:id="forceLabel" style="-fx-text-fill: white;" text="0" />
+                            </VBox>
+                        </HBox>
+
+                        <!-- График -->
+                        <AreaChart fx:id="chart" title="График" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <xAxis><CategoryAxis /></xAxis>
+                            <yAxis><NumberAxis autoRanging="false" /></yAxis>
+                        </AreaChart>
+                        <HBox alignment="CENTER" spacing="10">
+                            <CheckBox fx:id="positionCheckBox" text="Положение" />
+                            <CheckBox fx:id="speedCheckBox" text="Скорость" />
+                            <CheckBox fx:id="debrisCheckBox" text="Усилие" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
